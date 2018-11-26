@@ -1,0 +1,11 @@
+
+
+ext {
+    applicationId = "com.alvarohidalgo.heroesmvvm"
+    applicationVersionCode = 1
+    applicationVersionName = "0.0.1"
+    androidCompileSdkVersion = 28
+    androidTargetSdkVersion = 28
+    androidMinimumSdkVersion = 21
+    androidBuildToolsVersion = "28.0.1"
+}

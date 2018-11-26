@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion androidCompileSdkVersion
+    defaultConfig {
+        applicationId applicationId
+        minSdkVersion androidMinimumSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode applicationVersionCode
+        versionName applicationVersionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation kotlin_JDK8
+    implementation appCompat
+    implementation design
+    implementation appCompat
+    implementation recycler_view
+    implementation support_annotations
+    implementation card_view
+    implementation kotlin_JDK8
+    implementation androidx_lifecycle
+    kapt androidx_compiler
+    implementation coroutines_core
+    implementation coroutines_common
+    implementation coroutines_android
+    implementation coroutines_adapter
+    implementation coroutines_reactive
+    implementation retrofit
+    implementation retrofit_gson_converter
+    implementation okHttp
+    implementation gson
+    implementation koin
+    implementation koin_viewmodel
+    implementation anko_common
+    implementation anko_coroutines
+    implementation constraint_layout
+    implementation glide
+    implementation glide_processor
+
+    testImplementation mockito
+    testImplementation mockito_kotlin
+    testImplementation mockito_core
+    testImplementation kotlin_test_junit
+    testImplementation junit
+
+
+}
