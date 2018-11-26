@@ -1,7 +1,7 @@
-package com.alvarohidalgo.heroesmvvm.ui.main
+package com.alvarohidalgo.heroesmvvm.ui.model.mappers
 
 import com.alvarohidalgo.heroesmvvm.domain.model.Heroe
-import com.alvarohidalgo.heroesmvvm.ui.main.model.HeroeVM
+import com.alvarohidalgo.heroesmvvm.ui.model.HeroeVM
 
 class HeroesViewMapper {
 

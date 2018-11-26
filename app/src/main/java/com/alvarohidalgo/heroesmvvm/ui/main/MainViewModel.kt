@@ -3,6 +3,7 @@ package com.alvarohidalgo.heroesmvvm.ui.main
 import com.alvarohidalgo.heroesmvvm.domain.usecase.GetPrincipalHeroesUC
 import com.alvarohidalgo.heroesmvvm.domain.usecase.SearchHeroesByTextUC
 import com.alvarohidalgo.heroesmvvm.ui.base.arch.BaseViewModel
+import com.alvarohidalgo.heroesmvvm.ui.model.mappers.HeroesViewMapper
 
 class MainViewModel(
     val getPrincipalHeroesUC: GetPrincipalHeroesUC,
