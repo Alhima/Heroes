@@ -6,9 +6,9 @@ import com.alvarohidalgo.heroesmvvm.ui.base.arch.BaseViewModel
 import com.alvarohidalgo.heroesmvvm.ui.model.mappers.HeroesViewMapper
 
 class MainViewModel(
-    val getPrincipalHeroesUC: GetPrincipalHeroesUC,
-    val searchHeroesByTextUC: SearchHeroesByTextUC,
-    val heroesMapper: HeroesViewMapper
+    private val getPrincipalHeroesUC: GetPrincipalHeroesUC,
+    private val searchHeroesByTextUC: SearchHeroesByTextUC,
+    private val heroesMapper: HeroesViewMapper
 ) : BaseViewModel<MainState, MainRoute, MainAction>() {
 
 
