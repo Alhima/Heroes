@@ -12,7 +12,6 @@ ext {
     androidx_version = "1.0.0"
     mockito_core_version = "2.18.3"
     mockito_kotlin_version = "1.5.0"
-    timber_version = "4.7.1"
     junit_version = "4.12"
 
 

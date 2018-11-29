@@ -19,7 +19,7 @@ import kotlin.coroutines.CoroutineContext
 
 class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAction>, CoroutineScope {
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
+        get() = Dispatchers.Default
 
     val viewModel: MainViewModel by viewModel()
     var searchEditText: EditText? = null
@@ -29,13 +29,7 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAc
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_main)
         super.onCreate(savedInstanceState)
-        searchEditText?.let { view ->
-            launch {
-                view.onTextChanged().debounce().consumeEach {
-                    viewModel.searchHeroes(it)
-                }
-            }
-        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -43,10 +37,14 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAc
         val searchItem = menu?.findItem(R.id.actionSearch)
         val searchManager = this@MainActivity.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = searchItem?.actionView as SearchView
-        searchEditText = searchView.findViewById(
-            searchView.context.resources
-                .getIdentifier("android:id/search_src_text", null, null)
-        )
+        searchEditText = searchView.findViewById(R.id.search_src_text)
+        searchEditText?.let { view ->
+            launch {
+                view.onTextChanged().debounce().consumeEach {
+                    viewModel.searchHeroes(it)
+                }
+            }
+        }
         searchView.setSearchableInfo(searchManager.getSearchableInfo(this@MainActivity.componentName))
         return super.onCreateOptionsMenu(menu)
     }

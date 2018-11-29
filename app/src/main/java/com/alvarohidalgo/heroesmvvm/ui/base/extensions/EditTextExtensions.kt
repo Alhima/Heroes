@@ -6,29 +6,23 @@ import android.widget.EditText
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.whileSelect
 
 @ExperimentalCoroutinesApi
 @JvmOverloads
 suspend fun <T> ReceiveChannel<T>.debounce(delayTime: Long = 300L): ReceiveChannel<T> =
     Channel<T>(capacity = Channel.CONFLATED).also { channel ->
-        coroutineScope {
-            launch {
-                var value = receive()
-                whileSelect {
-                    onTimeout(delayTime) {
-                        channel.offer(value)
-                        value = receive()
-                        true
-                    }
+        var value = receive()
+        whileSelect {
+            onTimeout(delayTime) {
+                channel.send(value)
+                value = receive()
+                true
+            }
 
-                    onReceive {
-                        value = it
-                        true
-                    }
-                }
+            onReceive {
+                value = it
+                true
             }
         }
 
