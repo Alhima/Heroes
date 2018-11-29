@@ -10,11 +10,11 @@ class HeroesRepositoryImpl(
     val localDataSource: HeroesLocalDataSource
 ) : HeroesRepository {
 
-    suspend fun searchHeroes(name: String): List<Heroe> {
+    override suspend fun searchHeroes(name: String): List<Heroe> {
         return networkDataSource.search(name)
     }
 
-    suspend fun getAllHeroes(): List<Heroe> {
+    override suspend fun getAllHeroes(): List<Heroe> {
         return networkDataSource.getAll()
     }
 

@@ -1,14 +1,13 @@
 package com.alvarohidalgo.heroesmvvm.ui.base.arch
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
-import android.support.annotation.MainThread
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+
 
 class ActionLiveData<A : Action> : MutableLiveData<A>() {
 
-    @MainThread
-    override fun observe(owner: LifecycleOwner, observer: Observer<A>) {
+    override fun observe(owner: LifecycleOwner, observer: Observer<in A>) {
         if (hasObservers()) {
             throw Throwable("Only one observer allowed on an ActionLiveData")
         }
@@ -17,9 +16,9 @@ class ActionLiveData<A : Action> : MutableLiveData<A>() {
             observer.onChanged(data)
             value = null
         })
+
     }
 
-    @MainThread
     fun sendAction(data: A) {
         value = data
     }

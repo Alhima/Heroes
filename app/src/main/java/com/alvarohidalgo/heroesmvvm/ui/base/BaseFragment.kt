@@ -1,6 +1,6 @@
 package com.alvarohidalgo.heroesmvvm.ui.base
 
-import android.support.v4.app.FragmentActivity
-import com.alvarohidalgo.heroesmvvm.ui.base.arch.ViewModelOwner
+import androidx.fragment.app.Fragment
 
-abstract class BaseFragment : FragmentActivity(), ViewModelOwner
+
+abstract class BaseFragment : Fragment()

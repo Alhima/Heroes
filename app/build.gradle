@@ -48,7 +48,7 @@ dependencies {
     implementation anko_coroutines
     implementation constraint_layout
     implementation glide
-    implementation glide_processor
+    kapt glide_processor
 
     testImplementation mockito
     testImplementation mockito_kotlin
