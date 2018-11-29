@@ -29,7 +29,6 @@ dependencies {
     implementation design
     implementation appCompat
     implementation recycler_view
-    implementation support_annotations
     implementation card_view
     implementation kotlin_JDK8
     implementation androidx_lifecycle

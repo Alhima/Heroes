@@ -1,6 +1,5 @@
 package com.alvarohidalgo.heroesmvvm.ui.base
 
-import android.support.v7.app.AppCompatActivity
-import com.alvarohidalgo.heroesmvvm.ui.base.arch.ViewModelOwner
+import androidx.appcompat.app.AppCompatActivity
 
 abstract class BaseActivity : AppCompatActivity()

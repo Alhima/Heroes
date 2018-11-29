@@ -1,17 +1,13 @@
 package com.alvarohidalgo.heroesmvvm.ui.base.arch
 
 import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
-import com.alvarohidalgo.heroesmvvm.ui.base.coroutines.DispatchersConfig
-import com.alvarohidalgo.heroesmvvm.ui.base.coroutines.DispatchersConfigImpl
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
-abstract class BaseViewModel<S : State, R : Route, A : Action>(dispatcher: DispatchersConfig = DispatchersConfigImpl()) :
-    ViewModel(), CoroutineScope {
+abstract class BaseViewModel<S : State, R : Route, A : Action> : ViewModel(), CoroutineScope {
 
     private val state: MutableLiveData<S> = MutableLiveData()
     private val route: MutableLiveData<R> = MutableLiveData()
@@ -19,7 +15,7 @@ abstract class BaseViewModel<S : State, R : Route, A : Action>(dispatcher: Dispa
 
     private val job: Job = SupervisorJob()
 
-    override val coroutineContext: CoroutineContext = job + dispatcher.main
+    override val coroutineContext: CoroutineContext = job + Dispatchers.Main
 
     fun runFirstTime(block: () -> Unit) {
         if (state.value == null) {
