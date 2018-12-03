@@ -1,3 +1,3 @@
 package com.alvarohidalgo.heroesmvvm.ui.model
 
-data class HeroeVM(val name: String)
+data class HeroeVM(val id: String, val name: String, val photoUrl: String)

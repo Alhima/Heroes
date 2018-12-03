@@ -33,7 +33,7 @@ class MainViewModel(
     }
 
     fun heroClicked(hero: HeroeVM) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        changeRoute(MainRoute.HeroDetail(hero.id))
     }
 
 }

@@ -6,7 +6,7 @@ import com.alvarohidalgo.heroesmvvm.ui.model.HeroeVM
 class HeroesViewMapper {
 
     fun mapHero(hero: Heroe): HeroeVM {
-        return HeroeVM(hero.name)
+        return HeroeVM(hero.id, hero.name, hero.photoUrl)
     }
 
     fun mapHeroes(heroList: List<Heroe>): List<HeroeVM> {

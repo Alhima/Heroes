@@ -18,7 +18,8 @@ class HeroesNetworkDataSource(private val heroesApi: HeroesApi, private val hero
     }
 
     private suspend fun loadHeroes(heroesDeferred: Deferred<ApiResponse<HeroeDTO>>): List<Heroe> {
-        val heroeList = heroesDeferred.await().getData()
+        val deferred = heroesDeferred.await()
+        val heroeList = deferred.getData()
         try {
             return heroesMapper.mapHeroes(heroeList)
         } catch (e: Exception) {

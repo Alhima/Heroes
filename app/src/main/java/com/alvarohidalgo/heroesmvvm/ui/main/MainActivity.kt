@@ -8,11 +8,14 @@ import com.alvarohidalgo.heroesmvvm.ui.base.arch.ViewModelOwner
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.alvarohidalgo.heroesmvvm.navigation.Navigation
 import com.alvarohidalgo.heroesmvvm.ui.base.extensions.debounce
 import com.alvarohidalgo.heroesmvvm.ui.base.extensions.onTextChanged
+import com.alvarohidalgo.heroesmvvm.ui.herodetail.HeroDetailActivity
 import com.alvarohidalgo.heroesmvvm.ui.model.HeroeVM
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
@@ -79,7 +82,11 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAc
         r?.let {
             when (it) {
                 is MainRoute.HeroDetail -> {
-
+                    startActivity(Intent(this, HeroDetailActivity::class.java).apply {
+                        putExtras(Bundle().apply {
+                            putString(Navigation.HeroDetail.BUNDLE_HERO_ID, it.id)
+                        })
+                    })
                 }
             }
         }

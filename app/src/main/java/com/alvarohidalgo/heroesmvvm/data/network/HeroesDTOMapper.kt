@@ -9,5 +9,5 @@ class HeroesDTOMapper {
         return heroesList.map { mapHero(it) }
     }
 
-    fun mapHero(hero: HeroeDTO) : Heroe = Heroe(hero.id, hero.name)
+    fun mapHero(hero: HeroeDTO) : Heroe = Heroe(hero.id, hero.name, hero.resourceURI)
 }
