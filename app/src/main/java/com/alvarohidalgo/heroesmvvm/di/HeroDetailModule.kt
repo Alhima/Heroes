@@ -7,6 +7,6 @@ import org.koin.dsl.module.module
 
 val heroDetailModule : Module = module {
     viewModel<HeroDetailViewModel>()
-    single
+    single {}
 
 }

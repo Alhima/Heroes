@@ -7,7 +7,7 @@ import com.alvarohidalgo.heroesmvvm.domain.exceptions.DataException
 import com.alvarohidalgo.heroesmvvm.domain.model.Heroe
 import kotlinx.coroutines.Deferred
 
-class HeroesNetworkDataSource(private val heroesApi: HeroesApi, private val heroesMapper: HeroesMapper) {
+class HeroesNetworkDataSource(private val heroesApi: HeroesApi, private val heroesMapper: HeroesDTOMapper) {
 
     suspend fun search(name: String): List<Heroe> {
         return loadHeroes(heroesApi.getPrincipalHeroes(name))

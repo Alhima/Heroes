@@ -26,7 +26,9 @@ abstract class BaseViewModel<S : State, R : Route, A : Action> : ViewModel(), Co
     @Suppress("UNCHECKED_CAST")
     fun observe(lifecycleOwner: LifecycleOwner) {
         (lifecycleOwner as? ViewModelOwner<S, R, A>)?.let { owner ->
-            state.observe(lifecycleOwner, Observer { owner.onState(it) })
+            state.observe(lifecycleOwner, Observer {
+                owner.onState(it)
+            })
             route.observe(lifecycleOwner, Observer { owner.onRoute(it) })
             action.observe(lifecycleOwner, Observer { owner.onAction(it) })
         }

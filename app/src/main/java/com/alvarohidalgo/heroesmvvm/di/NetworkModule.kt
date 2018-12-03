@@ -1,6 +1,8 @@
 package com.alvarohidalgo.heroesmvvm.di
 
 import com.alvarohidalgo.heroesmvvm.data.network.ApiConfig
+import com.alvarohidalgo.heroesmvvm.data.network.TokenInterceptor
+import com.alvarohidalgo.heroesmvvm.data.network.services.HeroesApi
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import org.koin.dsl.module.module
@@ -9,14 +11,20 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val networkModule = module {
 
-    factory {
+    factory { TokenInterceptor() }
+
+    factory<OkHttpClient> {
         OkHttpClient.Builder()
+            .addInterceptor(get<TokenInterceptor>())
             .build()
     }
 
-    factory { Retrofit.Builder().apply {
-        addCallAdapterFactory(CoroutineCallAdapterFactory())
-        addConverterFactory(GsonConverterFactory.create())
-        baseUrl(ApiConfig.API_URL)
-    } }
+    factory<Retrofit> {
+        Retrofit.Builder().addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(get())
+            .baseUrl(ApiConfig.API_URL).build()
+    }
+
+    factory<HeroesApi> { get<Retrofit>().create(HeroesApi::class.java) }
 }

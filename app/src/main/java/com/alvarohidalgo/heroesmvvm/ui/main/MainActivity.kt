@@ -10,8 +10,11 @@ import android.app.SearchManager
 import android.content.Context
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alvarohidalgo.heroesmvvm.ui.base.extensions.debounce
 import com.alvarohidalgo.heroesmvvm.ui.base.extensions.onTextChanged
+import com.alvarohidalgo.heroesmvvm.ui.model.HeroeVM
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.consumeEach
 import kotlin.coroutines.CoroutineContext
@@ -24,12 +27,23 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAc
     val viewModel: MainViewModel by viewModel()
     var searchEditText: EditText? = null
 
+    val heroeClickListener: HeroeClickListener = object : HeroeClickListener {
+        override fun onHeroeClick(hero: HeroeVM) {
+            viewModel.heroClicked(hero)
+        }
+    }
+
+    val heroesAdapter: HeroeAdapter = HeroeAdapter(mutableListOf(), heroeClickListener)
+
     @ObsoleteCoroutinesApi
     @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_main)
         super.onCreate(savedInstanceState)
-
+        heroesrecyclerView.layoutManager = LinearLayoutManager(this)
+        heroesrecyclerView.adapter = heroesAdapter
+        viewModel.observe(this)
+        viewModel.initScreen()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -53,6 +67,7 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAc
         s?.let {
             when (it) {
                 is MainState.Data -> {
+                    heroesAdapter.addHeroes(it.heroes)
                 }
                 is MainState.Loading -> {
                 }

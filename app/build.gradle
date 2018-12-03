@@ -41,6 +41,7 @@ dependencies {
     implementation retrofit
     implementation retrofit_gson_converter
     implementation okHttp
+    implementation okHttp_logger
     implementation gson
     implementation koin
     implementation koin_viewmodel

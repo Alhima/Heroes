@@ -30,6 +30,7 @@ ext {
     retrofit = "com.squareup.retrofit2:retrofit:${retrofit_version}"
     retrofit_gson_converter = "com.squareup.retrofit2:converter-gson:${retrofit_version}"
     okHttp = "com.squareup.okhttp3:okhttp:${okHttp_version}"
+    okHttp_logger = "com.squareup.okhttp3:logging-interceptor:${okHttp_version}"
     gson = "com.google.code.gson:gson:${gson_version}"
     koin = "org.koin:koin-android:${koin_version}"
     koin_viewmodel = "org.koin:koin-androidx-viewmodel:${koin_version}"

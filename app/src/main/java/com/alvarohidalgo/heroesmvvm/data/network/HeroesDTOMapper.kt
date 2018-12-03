@@ -3,7 +3,7 @@ package com.alvarohidalgo.heroesmvvm.data.network
 import com.alvarohidalgo.heroesmvvm.data.network.model.HeroeDTO
 import com.alvarohidalgo.heroesmvvm.domain.model.Heroe
 
-class HeroesMapper {
+class HeroesDTOMapper {
 
     fun mapHeroes(heroesList: List<HeroeDTO>): List<Heroe> {
         return heroesList.map { mapHero(it) }

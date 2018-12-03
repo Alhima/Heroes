@@ -8,7 +8,7 @@ import com.alvarohidalgo.heroesmvvm.ui.model.HeroeVM
 
 sealed class MainState : State() {
     object Loading : MainState()
-    data class Data(val heroes: List<HeroeVM>) : MainState()
+    data class Data(val heroes: List<HeroeVM>, val cleanStack: Boolean) : MainState()
 }
 
 sealed class MainRoute : Route() {
