@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.alvarohidalgo.heroesmvvm.R
 import com.alvarohidalgo.heroesmvvm.ui.model.HeroeVM
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_heroe.view.*
 
 class HeroeAdapter(val heroeList: MutableList<HeroeVM>, val heroeClickListener: HeroeClickListener) :
@@ -32,9 +33,9 @@ class HeroeAdapter(val heroeList: MutableList<HeroeVM>, val heroeClickListener: 
     inner class HeroeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(heroe: HeroeVM) {
             with(itemView) {
+                Glide.with(this.context).load(heroe.photoUrl).into(ivHero)
                 tvHeroName.transitionName = heroe.name
                 ivHero.transitionName = heroe.photoUrl
-
                 tvHeroName.text = heroe.name
                 setOnClickListener { heroeClickListener.onHeroeClick(heroe) }
             }

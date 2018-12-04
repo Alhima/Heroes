@@ -12,7 +12,6 @@ import android.content.Intent
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.alvarohidalgo.heroesmvvm.navigation.Navigation
 import com.alvarohidalgo.heroesmvvm.ui.base.extensions.debounce
 import com.alvarohidalgo.heroesmvvm.ui.base.extensions.onTextChanged
@@ -23,6 +22,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.consumeEach
 import kotlin.coroutines.CoroutineContext
 import androidx.core.app.ActivityOptionsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import kotlinx.android.synthetic.main.item_heroe.*
 
 
@@ -46,7 +46,8 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAc
     override fun onCreate(savedInstanceState: Bundle?) {
         setContentView(R.layout.activity_main)
         super.onCreate(savedInstanceState)
-        heroesrecyclerView.layoutManager = LinearLayoutManager(this)
+        setSupportActionBar(toolbar)
+        heroesrecyclerView.layoutManager = GridLayoutManager(this, 2)
         heroesrecyclerView.adapter = heroesAdapter
         viewModel.observe(this)
         viewModel.initScreen()

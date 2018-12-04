@@ -22,7 +22,7 @@ class HeroDetailActivity : BaseActivity(), ViewModelOwner<HeroDetailState, HeroD
         val heroName = intent?.extras?.getString(Navigation.HeroDetail.BUNDLE_HERO_NAME).orEmpty()
         photoImageView.transitionName = heroPhotoUrl
         setSupportActionBar(toolbar)
-        toolbar.getChildAt(0)?.transitionName = heroName
+        collapsingToolbar.transitionName = heroName
         viewModel.observe(this)
         viewModel.initScreen(heroId)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
