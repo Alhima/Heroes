@@ -12,7 +12,7 @@ sealed class MainState : State() {
 }
 
 sealed class MainRoute : Route() {
-    data class HeroDetail(val id: String) : MainRoute()
+    data class HeroDetail(val hero: HeroeVM) : MainRoute()
 }
 
 sealed class MainAction : Action()

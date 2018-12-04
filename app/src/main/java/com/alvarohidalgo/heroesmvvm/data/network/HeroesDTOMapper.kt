@@ -9,11 +9,9 @@ class HeroesDTOMapper {
         return heroesList.map { mapHero(it) }
     }
 
-    fun mapHero(hero: HeroeDTO) : Heroe = Heroe(hero.id, hero.name, hero.resourceURI)
+    fun mapHero(hero: HeroeDTO): Heroe = Heroe(hero.id, hero.name, hero.resourceURI)
 
     fun mapHeroListIntoSingleHero(heroesList: List<HeroeDTO>): Heroe? {
-         heroesList.map { mapHero(it) }.let {
-             return if(it.isNotEmpty()) return it[0] else null
-        }
+        return heroesList.asSequence().map { mapHero(it) }.firstOrNull()
     }
 }

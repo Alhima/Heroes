@@ -33,7 +33,7 @@ class MainViewModel(
     }
 
     fun heroClicked(hero: HeroeVM) {
-        changeRoute(MainRoute.HeroDetail(hero.id))
+        changeRoute(MainRoute.HeroDetail(hero))
     }
 
 }

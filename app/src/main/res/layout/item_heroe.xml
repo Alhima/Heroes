@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        app:cardCornerRadius="5dp"
+        app:cardPreventCornerOverlap="true"
+        app:layout_collapseParallaxMultiplier="@android:integer/config_mediumAnimTime"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:id="@+id/tvHeroeName"/>
-</LinearLayout>
+    <TextView
+            android:gravity="center"
+            tools:text="Iron Man"
+            android:transitionName="heroName"
+            android:layout_gravity="center"
+            android:id="@+id/tvHeroName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:transitionName="heroImage"
+            android:id="@+id/ivHero"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+</com.google.android.material.card.MaterialCardView>

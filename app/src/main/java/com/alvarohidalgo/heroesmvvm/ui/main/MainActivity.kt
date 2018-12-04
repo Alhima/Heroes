@@ -9,6 +9,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.consumeEach
 import kotlin.coroutines.CoroutineContext
+import androidx.core.app.ActivityOptionsCompat
+import kotlinx.android.synthetic.main.item_heroe.*
 
 
 class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAction>, CoroutineScope {
@@ -82,11 +85,17 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAc
         r?.let {
             when (it) {
                 is MainRoute.HeroDetail -> {
+                    val p1 = androidx.core.util.Pair<View, String>(ivHero, it.hero.photoUrl)
+                    val p2 = androidx.core.util.Pair<View, String>(tvHeroName, it.hero.name)
+                    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, p1, p2)
+
                     startActivity(Intent(this, HeroDetailActivity::class.java).apply {
                         putExtras(Bundle().apply {
-                            putString(Navigation.HeroDetail.BUNDLE_HERO_ID, it.id)
+                            putString(Navigation.HeroDetail.BUNDLE_HERO_ID, it.hero.id)
+                            putString(Navigation.HeroDetail.BUNDLE_HERO_URL, it.hero.photoUrl)
+                            putString(Navigation.HeroDetail.BUNDLE_HERO_NAME, it.hero.name)
                         })
-                    })
+                    }, options.toBundle())
                 }
             }
         }

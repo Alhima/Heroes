@@ -32,7 +32,10 @@ class HeroeAdapter(val heroeList: MutableList<HeroeVM>, val heroeClickListener: 
     inner class HeroeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(heroe: HeroeVM) {
             with(itemView) {
-                tvHeroeName.text = heroe.name
+                tvHeroName.transitionName = heroe.name
+                ivHero.transitionName = heroe.photoUrl
+
+                tvHeroName.text = heroe.name
                 setOnClickListener { heroeClickListener.onHeroeClick(heroe) }
             }
         }

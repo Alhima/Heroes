@@ -2,7 +2,6 @@ package com.alvarohidalgo.heroesmvvm.ui.herodetail
 
 import com.alvarohidalgo.heroesmvvm.domain.usecase.GetHeroByIdUC
 import com.alvarohidalgo.heroesmvvm.ui.base.arch.BaseViewModel
-import com.alvarohidalgo.heroesmvvm.ui.model.HeroeVM
 import com.alvarohidalgo.heroesmvvm.ui.model.mappers.HeroesViewMapper
 
 
@@ -16,11 +15,9 @@ class HeroDetailViewModel(val getHeroUC: GetHeroByIdUC, val heroMapper: HeroesVi
     }
 
     private fun getHeroData(id: String) {
+        changeState(HeroDetailState.Loading)
         runJob {
-            changeState(HeroDetailState.Loading)
-            val hero: HeroeVM = heroMapper.mapHero(getHeroUC.execute(id))
-            changeState(HeroDetailState.Data(hero))
+            changeState(HeroDetailState.Data(heroMapper.mapHero(getHeroUC.execute(id))))
         }
-
     }
 }
