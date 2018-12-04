@@ -5,6 +5,7 @@ import com.alvarohidalgo.heroesmvvm.R
 import com.alvarohidalgo.heroesmvvm.navigation.Navigation
 import com.alvarohidalgo.heroesmvvm.ui.base.BaseActivity
 import com.alvarohidalgo.heroesmvvm.ui.base.arch.ViewModelOwner
+import com.alvarohidalgo.heroesmvvm.ui.model.HeroeVM
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HeroDetailActivity : BaseActivity(), ViewModelOwner<HeroDetailState, HeroDetailRoute, HeroDetailAction> {
@@ -20,7 +21,12 @@ class HeroDetailActivity : BaseActivity(), ViewModelOwner<HeroDetailState, HeroD
     }
 
     override fun onState(s: HeroDetailState?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        s?.let{
+            when(it) {
+                is HeroDetailState.Data -> loadHeroData(it.hero)
+                is HeroDetailState.Loading -> setLoading()
+            }
+        }
     }
 
     override fun onRoute(r: HeroDetailRoute?) {
@@ -29,5 +35,14 @@ class HeroDetailActivity : BaseActivity(), ViewModelOwner<HeroDetailState, HeroD
 
     override fun onAction(r: HeroDetailAction?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+
+    private fun setLoading() {
+
+    }
+
+    private fun loadHeroData(hero: HeroeVM) {
+        val heroe = hero.name
     }
 }

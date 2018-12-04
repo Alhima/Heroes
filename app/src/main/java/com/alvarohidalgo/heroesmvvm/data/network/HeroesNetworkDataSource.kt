@@ -26,4 +26,20 @@ class HeroesNetworkDataSource(private val heroesApi: HeroesApi, private val hero
             throw DataException()
         }
     }
+
+    private suspend fun loadHeroe(heroesDeferred: Deferred<ApiResponse<HeroeDTO>>): Heroe {
+        val deferred = heroesDeferred.await()
+        val hero = deferred.getData()
+        try {
+            heroesMapper.mapHeroListIntoSingleHero(hero)?.let {
+                return it
+            } ?: throw DataException()
+        } catch (e: Exception) {
+            throw DataException()
+        }
+    }
+
+    suspend fun getHeroById(id: String): Heroe {
+        return loadHeroe(heroesApi.getHeroeById(id))
+    }
 }

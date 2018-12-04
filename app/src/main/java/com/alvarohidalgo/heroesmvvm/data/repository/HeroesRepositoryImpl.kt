@@ -18,4 +18,8 @@ class HeroesRepositoryImpl(
         return networkDataSource.getAll()
     }
 
+    override suspend fun getHeroById(id: String): Heroe {
+        return networkDataSource.getHeroById(id)
+    }
+
 }
