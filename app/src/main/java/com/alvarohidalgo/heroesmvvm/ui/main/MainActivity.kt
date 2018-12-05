@@ -23,6 +23,7 @@ import kotlinx.coroutines.channels.consumeEach
 import kotlin.coroutines.CoroutineContext
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import com.alvarohidalgo.heroesmvvm.ui.base.extensions.onPageTriggered
 import kotlinx.android.synthetic.main.item_heroe.*
 
 
@@ -49,6 +50,7 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAc
         setSupportActionBar(toolbar)
         heroesrecyclerView.layoutManager = GridLayoutManager(this, 2)
         heroesrecyclerView.adapter = heroesAdapter
+        heroesrecyclerView.onPageTriggered(viewModel.isPaginatedListFull(), viewModel.isLoading(), viewModel.loadNextPage())
         viewModel.observe(this)
         viewModel.initScreen()
     }

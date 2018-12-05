@@ -5,8 +5,8 @@ import com.alvarohidalgo.heroesmvvm.domain.repositories.HeroesRepository
 
 class GetPrincipalHeroesUC(private val repo: HeroesRepository) {
 
-    suspend fun execute(): List<Heroe> {
-        return repo.getAllHeroes()
+    suspend fun execute(isNextPage: Boolean): List<Heroe> {
+        return repo.getAllHeroes(isNextPage)
     }
 
 }

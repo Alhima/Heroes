@@ -7,6 +7,7 @@ import com.alvarohidalgo.heroesmvvm.navigation.Navigation
 import com.alvarohidalgo.heroesmvvm.ui.base.BaseActivity
 import com.alvarohidalgo.heroesmvvm.ui.base.arch.ViewModelOwner
 import com.alvarohidalgo.heroesmvvm.ui.model.HeroeVM
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_herodetail.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -21,8 +22,10 @@ class HeroDetailActivity : BaseActivity(), ViewModelOwner<HeroDetailState, HeroD
         val heroPhotoUrl = intent?.extras?.getString(Navigation.HeroDetail.BUNDLE_HERO_URL).orEmpty()
         val heroName = intent?.extras?.getString(Navigation.HeroDetail.BUNDLE_HERO_NAME).orEmpty()
         photoImageView.transitionName = heroPhotoUrl
+        supportActionBar?.customView?.transitionName = heroName
+
+        Glide.with(this).load(heroPhotoUrl).into(photoImageView)
         setSupportActionBar(toolbar)
-        collapsingToolbar.transitionName = heroName
         viewModel.observe(this)
         viewModel.initScreen(heroId)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

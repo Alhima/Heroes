@@ -9,12 +9,12 @@ import kotlinx.coroutines.Deferred
 
 class HeroesNetworkDataSource(private val heroesApi: HeroesApi, private val heroesMapper: HeroesDTOMapper) {
 
-    suspend fun search(name: String): List<Heroe> {
-        return loadHeroes(heroesApi.getPrincipalHeroes(name))
+    suspend fun search(name: String, offSet: Int): List<Heroe> {
+        return loadHeroes(heroesApi.getPrincipalHeroes(offSet, name))
     }
 
-    suspend fun getAll(): List<Heroe> {
-        return loadHeroes(heroesApi.getPrincipalHeroes())
+    suspend fun getAll(offSet: Int): List<Heroe> {
+        return loadHeroes(heroesApi.getPrincipalHeroes(offSet))
     }
 
     private suspend fun loadHeroes(heroesDeferred: Deferred<ApiResponse<HeroeDTO>>): List<Heroe> {
@@ -27,7 +27,7 @@ class HeroesNetworkDataSource(private val heroesApi: HeroesApi, private val hero
         }
     }
 
-    private suspend fun loadHeroe(heroesDeferred: Deferred<ApiResponse<HeroeDTO>>): Heroe {
+    private suspend fun loadSingleHeroe(heroesDeferred: Deferred<ApiResponse<HeroeDTO>>): Heroe {
         val deferred = heroesDeferred.await()
         val hero = deferred.getData()
         try {
@@ -40,6 +40,6 @@ class HeroesNetworkDataSource(private val heroesApi: HeroesApi, private val hero
     }
 
     suspend fun getHeroById(id: String): Heroe {
-        return loadHeroe(heroesApi.getHeroeById(id))
+        return loadSingleHeroe(heroesApi.getHeroeById(id))
     }
 }

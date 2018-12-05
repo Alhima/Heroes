@@ -10,16 +10,25 @@ class HeroesRepositoryImpl(
     val localDataSource: HeroesLocalDataSource
 ) : HeroesRepository {
 
-    override suspend fun searchHeroes(name: String): List<Heroe> {
-        return networkDataSource.search(name)
+    private val itemsPaginatedNumber = 20
+    private var page = 0
+
+    override suspend fun searchHeroes(name: String, isNextPage: Boolean): List<Heroe> {
+        return networkDataSource.search(name, getOffset(isNextPage))
     }
 
-    override suspend fun getAllHeroes(): List<Heroe> {
-        return networkDataSource.getAll()
+    override suspend fun getAllHeroes(isNextPage: Boolean): List<Heroe> {
+        return networkDataSource.getAll(getOffset(isNextPage))
     }
 
     override suspend fun getHeroById(id: String): Heroe {
         return networkDataSource.getHeroById(id)
+    }
+
+
+    private fun getOffset(nextPage: Boolean): Int {
+        if (nextPage) page += 1 else page = 0
+        return page * itemsPaginatedNumber
     }
 
 }

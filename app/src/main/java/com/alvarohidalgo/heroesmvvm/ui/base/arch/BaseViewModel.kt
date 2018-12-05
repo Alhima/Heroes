@@ -9,7 +9,7 @@ import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel<S : State, R : Route, A : Action> : ViewModel(), CoroutineScope {
 
-    private val state: MutableLiveData<S> = MutableLiveData()
+    protected val state: MutableLiveData<S> = MutableLiveData()
     private val route: MutableLiveData<R> = MutableLiveData()
     private val action: ActionLiveData<A> = ActionLiveData()
 
