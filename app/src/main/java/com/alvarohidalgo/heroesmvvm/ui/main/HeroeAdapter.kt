@@ -25,6 +25,11 @@ class HeroeAdapter(val heroeList: MutableList<HeroeVM>, val heroeClickListener: 
     }
 
     fun addHeroes(heroes: List<HeroeVM>) {
+        heroeList.addAll(heroes)
+        notifyDataSetChanged()
+    }
+
+    fun clearHeroes(heroes: List<HeroeVM>) {
         heroeList.clear()
         heroeList.addAll(heroes)
         notifyDataSetChanged()

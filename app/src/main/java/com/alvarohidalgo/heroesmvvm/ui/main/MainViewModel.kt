@@ -24,6 +24,7 @@ class MainViewModel(
     }
 
     fun searchHeroes(name: String) {
+        listType.postValue(ListBeingLoadedType.SearchList)
         changeState(MainState.Loading)
         runJob {
             changeState(MainState.Data(heroesMapper.mapHeroes(searchHeroesByTextUC.execute(name, false)), true))
@@ -31,6 +32,7 @@ class MainViewModel(
     }
 
     fun getAllHeroes() {
+        listType.postValue(ListBeingLoadedType.MainList)
         changeState(MainState.Loading)
         runJob {
             changeState(MainState.Data(heroesMapper.mapHeroes(getPrincipalHeroesUC.execute(false)), true))
@@ -41,24 +43,28 @@ class MainViewModel(
         changeRoute(MainRoute.HeroDetail(hero))
     }
 
-    fun isPaginatedListFull(): () -> Boolean = { listIsFull.value ?: true }
+    fun isPaginatedListFull(): () -> Boolean = { listIsFull.value ?: false }
     fun isLoading(): () -> Boolean = { state.value is MainState.Loading }
     fun loadNextPage(): () -> Unit = { when(listType.value) {
-        is ListBeingLoadedType.MainList -> loadMorePrincipalHeroes()
-        is ListBeingLoadedType.SearchList -> loadMoreSearchedHeroes()
+        is ListBeingLoadedType.MainList -> {
+            loadMorePrincipalHeroes()
+        }
+        is ListBeingLoadedType.SearchList -> {
+            loadMoreSearchedHeroes()
+        }
     } }
 
     private fun loadMoreSearchedHeroes() {
         changeState(MainState.Loading)
         runJob {
-            changeState(MainState.Data(heroesMapper.mapHeroes(getPrincipalHeroesUC.execute(true)), true))
+            changeState(MainState.Data(heroesMapper.mapHeroes(getPrincipalHeroesUC.execute(true)), false))
         }
     }
 
     private fun loadMorePrincipalHeroes() {
         changeState(MainState.Loading)
         runJob {
-            changeState(MainState.Data(heroesMapper.mapHeroes(getPrincipalHeroesUC.execute(true)), true))
+            changeState(MainState.Data(heroesMapper.mapHeroes(getPrincipalHeroesUC.execute(true)), false))
         }
     }
 

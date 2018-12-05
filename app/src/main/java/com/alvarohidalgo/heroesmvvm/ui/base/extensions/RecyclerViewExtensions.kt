@@ -14,7 +14,7 @@ fun RecyclerView.onPageTriggered(isStopped: () -> Boolean, isloading: () -> Bool
             (layoutManager as? LinearLayoutManager)?.let {
                 val totalItemCount = it.itemCount
                 val lastVisibleItemPosition = it.findLastVisibleItemPosition()
-                if (!isloading() && !isStopped() && lastVisibleItemPosition >= totalItemCount) {
+                if (!isloading() && !isStopped() && lastVisibleItemPosition >= totalItemCount - 3) {
                     action.invoke()
                 }
             }

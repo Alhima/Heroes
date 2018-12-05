@@ -13,8 +13,6 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.widget.SearchView
 import com.alvarohidalgo.heroesmvvm.navigation.Navigation
-import com.alvarohidalgo.heroesmvvm.ui.base.extensions.debounce
-import com.alvarohidalgo.heroesmvvm.ui.base.extensions.onTextChanged
 import com.alvarohidalgo.heroesmvvm.ui.herodetail.HeroDetailActivity
 import com.alvarohidalgo.heroesmvvm.ui.model.HeroeVM
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,7 +21,7 @@ import kotlinx.coroutines.channels.consumeEach
 import kotlin.coroutines.CoroutineContext
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.GridLayoutManager
-import com.alvarohidalgo.heroesmvvm.ui.base.extensions.onPageTriggered
+import com.alvarohidalgo.heroesmvvm.ui.base.extensions.*
 import kotlinx.android.synthetic.main.item_heroe.*
 
 
@@ -50,7 +48,11 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAc
         setSupportActionBar(toolbar)
         heroesrecyclerView.layoutManager = GridLayoutManager(this, 2)
         heroesrecyclerView.adapter = heroesAdapter
-        heroesrecyclerView.onPageTriggered(viewModel.isPaginatedListFull(), viewModel.isLoading(), viewModel.loadNextPage())
+        heroesrecyclerView.onPageTriggered(
+            viewModel.isPaginatedListFull(),
+            viewModel.isLoading(),
+            viewModel.loadNextPage()
+        )
         viewModel.observe(this)
         viewModel.initScreen()
     }
@@ -76,9 +78,11 @@ class MainActivity : BaseActivity(), ViewModelOwner<MainState, MainRoute, MainAc
         s?.let {
             when (it) {
                 is MainState.Data -> {
-                    heroesAdapter.addHeroes(it.heroes)
+                    progressBar.gone()
+                    if (it.cleanStack) heroesAdapter.clearHeroes(it.heroes) else heroesAdapter.addHeroes(it.heroes)
                 }
                 is MainState.Loading -> {
+                    progressBar.visible()
                 }
             }
         }
