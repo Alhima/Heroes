@@ -8,7 +8,7 @@
             android:theme="@style/AppTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-    
+
     <ProgressBar
             android:layout_below="@+id/toolbar"
             style="?android:attr/progressBarStyleHorizontal"

@@ -2,10 +2,13 @@ package com.alvarohidalgo.heroesmvvm.ui.herodetail
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.alvarohidalgo.heroesmvvm.R
 import com.alvarohidalgo.heroesmvvm.navigation.Navigation
 import com.alvarohidalgo.heroesmvvm.ui.base.BaseActivity
 import com.alvarohidalgo.heroesmvvm.ui.base.arch.ViewModelOwner
+import com.alvarohidalgo.heroesmvvm.ui.model.HeroDetailItem
 import com.alvarohidalgo.heroesmvvm.ui.model.HeroeVM
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_herodetail.*
@@ -13,7 +16,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HeroDetailActivity : BaseActivity(), ViewModelOwner<HeroDetailState, HeroDetailRoute, HeroDetailAction> {
 
-    val viewModel: HeroDetailViewModel by viewModel()
+    private val viewModel: HeroDetailViewModel by viewModel()
+
+    private val adapter by lazy {
+        HeroDetailItemsAdapter(mutableListOf(),
+            object : HeroDetailItemsAdapter.OnClickItemListener {
+                override fun onClick(item: HeroDetailItem) {
+                    Toast.makeText(this@HeroDetailActivity, "Click", Toast.LENGTH_SHORT).show()
+                }
+            })
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +42,8 @@ class HeroDetailActivity : BaseActivity(), ViewModelOwner<HeroDetailState, HeroD
         viewModel.initScreen(heroId)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = heroName
+        recyclerViewHeroDetail.layoutManager = LinearLayoutManager(this)
+        recyclerViewHeroDetail.adapter = adapter
     }
 
     override fun onState(s: HeroDetailState?) {
@@ -64,6 +78,6 @@ class HeroDetailActivity : BaseActivity(), ViewModelOwner<HeroDetailState, HeroD
     }
 
     private fun loadHeroData(hero: HeroeVM) {
-
+        adapter.addItems(hero.heroDetails)
     }
 }
