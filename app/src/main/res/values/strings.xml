@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HeroesMVVM</string>
     <string name="search_hint">Hero name</string>
+    <string name="comics">Comics</string>
 </resources>

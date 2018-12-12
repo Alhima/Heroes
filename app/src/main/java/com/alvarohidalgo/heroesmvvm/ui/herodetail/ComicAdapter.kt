@@ -1,5 +1,6 @@
 package com.alvarohidalgo.heroesmvvm.ui.herodetail
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,19 +9,19 @@ import com.alvarohidalgo.heroesmvvm.ui.base.extensions.download
 import com.alvarohidalgo.heroesmvvm.ui.model.ComicVM
 import kotlinx.android.synthetic.main.item_comic.view.*
 
-class ComicAdapter(val action: (String) -> Unit) : RecyclerView.Adapter<ComicAdapter.ComicViewHolder>() {
+class ComicAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val comics: MutableList<ComicVM> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComicViewHolder {
-        val v = View.inflate(parent.context, R.layout.item_comic, parent)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_comic, parent,false)
         return ComicViewHolder(v)
     }
 
     override fun getItemCount(): Int = comics.size
 
-    override fun onBindViewHolder(holder: ComicViewHolder, position: Int) {
-        holder.bind(comics[position])
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        (holder as ComicViewHolder).bind(comics[position])
     }
 
     fun setComics(moreComics: List<ComicVM>) {
@@ -31,8 +32,7 @@ class ComicAdapter(val action: (String) -> Unit) : RecyclerView.Adapter<ComicAda
     inner class ComicViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         fun bind(comic: ComicVM) {
             with(itemView) {
-                comicContainer.setOnClickListener { action.invoke(comic.id) }
-                comicImage.download(comic.url)
+                comicName.text = comic.name
             }
         }
     }

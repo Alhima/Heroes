@@ -3,9 +3,11 @@ package com.alvarohidalgo.heroesmvvm.ui.herodetail
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alvarohidalgo.heroesmvvm.R
 import com.alvarohidalgo.heroesmvvm.ui.model.HeroDetailItem
+import kotlinx.android.synthetic.main.item_comic_list.view.*
 import kotlinx.android.synthetic.main.item_description.view.*
 
 class HeroDetailItemsAdapter(
@@ -50,9 +52,9 @@ class HeroDetailItemsAdapter(
                     false
                 )
             )
-            COMICLIST -> DescriptionViewHolder(
+            COMICLIST -> ComicsViewHolder(
                 LayoutInflater.from(parent.context).inflate(
-                    R.layout.item_description,
+                    R.layout.item_comic_list,
                     parent,
                     false
                 )
@@ -96,15 +98,31 @@ class HeroDetailItemsAdapter(
                 listItems[position] as HeroDetailItem.Description,
                 onClickItemListener
             )
+            is ComicsViewHolder -> holder.bind(
+                listItems[position] as HeroDetailItem.ComicList
+            )
         }
     }
-
 
     inner class DescriptionViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         fun bind(description: HeroDetailItem.Description, onClickItem: OnClickItemListener) {
             with(itemView) {
                 descriptionText.text = description.descriptionText
                 setOnClickListener { onClickItem.onClick(description) }
+            }
+        }
+    }
+
+
+    inner class ComicsViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        fun bind(comicListEntity: HeroDetailItem.ComicList) {
+            val comicList = comicListEntity.list
+            val adapter = ComicAdapter()
+            adapter.setComics(comicList)
+            with(itemView) {
+                titleText.text = context.getString(R.string.comics)
+                recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                recyclerView.adapter = adapter
             }
         }
     }

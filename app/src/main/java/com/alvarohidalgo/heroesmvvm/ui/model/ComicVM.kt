@@ -1,3 +1,3 @@
 package com.alvarohidalgo.heroesmvvm.ui.model
 
-class ComicVM(val id: String, val url: String)
+class ComicVM(val name: String, val url: String)

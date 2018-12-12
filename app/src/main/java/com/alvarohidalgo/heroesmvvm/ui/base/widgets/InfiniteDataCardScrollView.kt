@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alvarohidalgo.heroesmvvm.R
 import kotlinx.android.synthetic.main.widget_infinitescroll.view.*
-import com.alvarohidalgo.heroesmvvm.ui.base.extensions.gone
 
 
 class InfiniteDataCardScrollView<T : RecyclerView.Adapter<RecyclerView.ViewHolder>> @JvmOverloads constructor(
@@ -21,8 +20,7 @@ class InfiniteDataCardScrollView<T : RecyclerView.Adapter<RecyclerView.ViewHolde
         val a = context.obtainStyledAttributes(attrs, R.styleable.InfiniteDataCardScrollView, defaultStyle, 0)
         val t = a.getString(R.styleable.InfiniteDataCardScrollView_title)
         a.recycle()
-        LayoutInflater.from(context).inflate(R.layout.widget_infinitescroll, this, false)
-        t?.let { titleText.text = it } ?: titleText.gone()
+        LayoutInflater.from(context).inflate(R.layout.widget_infinitescroll, this)
     }
 
     fun setAdapter(adapter: T) {
